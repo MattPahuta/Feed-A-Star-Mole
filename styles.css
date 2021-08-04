@@ -10,6 +10,7 @@ body {
   align-items: center;
   margin: 0;
   padding: 0;
+  height: 100vh;
 }
 
 .bg {
@@ -21,4 +22,32 @@ body {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+}
+
+.hole-container {
+  width: 25%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hole {
+  background-color: #000;
+  border-radius: 50%;
+  overflow: visible;
+  width: 267px;
+  height: 267px;
+}
+
+.mole {
+  position: relative;
+  right: 30px;
+}
+
+.hungry {
+  cursor: url(./imgs/cursor-worm.png), default;
+}
+
+.gone {
+  display: none;
 }
