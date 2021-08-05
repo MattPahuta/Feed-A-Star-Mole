@@ -1,4 +1,6 @@
 
+let score = 0;
+
 // moles array
 const moles = [
   {
@@ -81,6 +83,7 @@ function getHungryInterval() {
 function getNextStatus(mole) {
   switch (mole.status) {
     case "sad":
+    case "fed":
       mole.next = getSadInterval();
       mole.status = "leaving";
       mole.node.children[0].src = "./imgs/mole-leaving.png";
@@ -106,8 +109,31 @@ function getNextStatus(mole) {
   }
 }
 
-// Game run function 
+function feed (event) {
+  // check if target is an img or not hungry
+  if (event.target.tagName !== 'IMG' || !event.target.classList.contains('hungry')) {
+    return;
+  }
+  // feed mole
+  const mole = moles[parseInt(event.target.dataset.index)];
+  mole.status = 'fed';
+  mole.next = getSadInterval();
+  mole.node.children[0].src = './imgs/mole-fed.png';
+  mole.node.children[0].classList.remove('hungry');
+  score += 1;
 
+  if (score >= 10) {
+    win();
+  }
+
+}
+
+function win() {
+  document.querySelector('.bg').classList.add('hide');
+  document.querySelector('.win').classList.remove('hide');
+}
+
+// Game run function 
 let runAgainAt = Date.now() + 100;
 function nextFrame() {
   const now = Date.now();
@@ -123,5 +149,8 @@ function nextFrame() {
 
   requestAnimationFrame(nextFrame);
 }
+
+// event listeners
+document.querySelector('.bg').addEventListener('click', feed);
 
 nextFrame();

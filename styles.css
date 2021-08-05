@@ -48,6 +48,8 @@ body {
   cursor: url(./imgs/cursor-worm.png), default;
 }
 
-.gone {
+.gone,
+.hide {
   display: none;
 }
+
