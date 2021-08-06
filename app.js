@@ -147,6 +147,8 @@ function feed (event) {
   if (score >= 10) {
     win();
   }
+  // adjust the worm score meter
+  document.querySelector('.worm-container').style.width = `${10 * score}%`;
 
 }
 
