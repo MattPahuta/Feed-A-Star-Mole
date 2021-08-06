@@ -11,6 +11,7 @@ body {
   margin: 0;
   padding: 0;
   height: 100vh;
+  width: 100vw;
 }
 
 .bg {
@@ -45,11 +46,10 @@ body {
 }
 
 .hungry {
-  cursor: url(./imgs/cursor-worm.png), default;
+  cursor: url(./imgs/cursor-worm.png), pointer;
 }
 
-.gone,
-.hide {
+.gone {
   display: none;
 }
 
@@ -64,4 +64,18 @@ body {
 
 .worm-box {
   width: 1660px;
+}
+
+.win {
+  max-width: 100vw;
+  max-height: 100vh;
+  display: none;
+}
+
+.hide {
+  display: none;
+}
+
+.show {
+  display: block;
 }
