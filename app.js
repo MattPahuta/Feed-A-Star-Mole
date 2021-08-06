@@ -79,6 +79,10 @@ function getHungryInterval() {
   return Date.now() + Math.floor(Math.random() * 3000) + 2000;
 }
 
+function getKingStatus() {
+  return Math.random() > .9;
+}
+
 // function to switch mole status
 function getNextStatus(mole) {
   switch (mole.status) {
@@ -86,7 +90,11 @@ function getNextStatus(mole) {
     case "fed":
       mole.next = getSadInterval();
       mole.status = "leaving";
-      mole.node.children[0].src = "./imgs/mole-leaving.png";
+      if (mole.king) {
+        mole.node.children[0].src = "./imgs/king-mole-leaving.png";
+      } else {
+        mole.node.children[0].src = "./imgs/mole-leaving.png";
+      }
       break;
     case "leaving":
       mole.next = getGoneInterval();
@@ -96,15 +104,24 @@ function getNextStatus(mole) {
     case "gone":
       mole.next = getHungryInterval();
       mole.status = "hungry";
+      mole.king = getKingStatus();
       mole.node.children[0].classList.add("hungry");
       mole.node.children[0].classList.remove("gone");
-      mole.node.children[0].src = "./imgs/mole-hungry.png";
+      if (mole.king) {
+        mole.node.children[0].src = "./imgs/king-mole-hungry.png";
+      } else {
+        mole.node.children[0].src = "./imgs/mole-hungry.png";
+      }
       break;
     case "hungry":
       mole.next = getSadInterval();
       mole.status = "sad";
       mole.node.children[0].classList.remove("hungry");
-      mole.node.children[0].src = "./imgs/mole-sad.png";
+      if (mole.king) {
+        mole.node.children[0].src = "./imgs/king-mole-sad.png";
+      } else {
+        mole.node.children[0].src = "./imgs/mole-sad.png";
+      }
       break;
   }
 }
@@ -118,9 +135,14 @@ function feed (event) {
   const mole = moles[parseInt(event.target.dataset.index)];
   mole.status = 'fed';
   mole.next = getSadInterval();
-  mole.node.children[0].src = './imgs/mole-fed.png';
+  if (mole.king) {
+    score += 2;
+    mole.node.children[0].src = './imgs/king-mole-fed.png';
+  } else {
+    score += 1;
+    mole.node.children[0].src = './imgs/mole-fed.png';
+  }
   mole.node.children[0].classList.remove('hungry');
-  score += 1;
 
   if (score >= 10) {
     win();
